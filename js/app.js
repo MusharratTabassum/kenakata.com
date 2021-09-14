@@ -4,6 +4,7 @@ const loadProducts = () => {
     .then(data => showProducts(data))
 };
 
+
 // show all product in UI 
 const showProducts = (products) => {
   const allProducts = products.map((pd) => pd);
@@ -15,14 +16,14 @@ const showProducts = (products) => {
       <div>
     <img class="product-image" src=${image}></img>
       </div>
-      <h2>${product.title}</h2>
+      <h3>${product.title}</h3>
       <p>Category: ${product.category}</p>
       <h3>Price: $ ${product.price}</h3>
       <h5>Rating: ${product.rating.rate}</h5>
       <h5>Count: ${product.rating.count}</h5>
-      <div class="m-3">
+      <div class="card-footer">
       <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-success">add to cart</button>
-      <button id="details-btn" class="btn btn-danger">Details</button>
+      <button onclick="showDetails('${image}','${product.title}','${product.description}','${product.rating.rate}')" id="details-btn" class="btn btn-danger">Details</button>
         </div>
       </div>
       `;
@@ -39,6 +40,39 @@ const addToCart = (id, price) => {
   updateTotal();
 };
 
+// show product
+const showDetails = (image, title, detail, rating) => {
+  document.getElementById("product-details").textContent = "";
+  const div = document.createElement("div");
+
+  div.innerHTML = `
+  <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src=${image} class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">${title}</h5>
+        <p class="card-text">${detail}</p>
+        <p class="card-text">Rating : ${rating}</p>
+     
+      </div>
+    </div>
+  </div>
+</div>
+
+`;
+
+  // div.innerHTML = `
+  //   <div class=" bg-light p-5">
+  //   <img class="product-image" src=${image}></img>
+  //     <h3> Product details:  </h3>
+  //     <p>${detail}</p>
+  // </div>
+  // `;
+  document.getElementById("product-details").appendChild(div);
+};
 const getInputValue = (id) => {
   const element = document.getElementById(id).innerText;
   const converted = parseFloat(element);
