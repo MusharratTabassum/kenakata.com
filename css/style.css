@@ -13,9 +13,7 @@ body {
   border: none;
 }
 
-.search-button {
- color: aqua;
-}
+
 #all-products {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
